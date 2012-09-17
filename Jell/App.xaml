@@ -1,0 +1,16 @@
+﻿<Application x:Class="Jell.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:Jell="clr-namespace:Jell">
+   <Application.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary>
+               <Jell:AppBootstrapper x:Key="Bootstrapper"/>
+            </ResourceDictionary>
+            <ResourceDictionary Source="Theme/TextBox.xaml"/>
+            <ResourceDictionary Source="Theme/Label.xaml"/>
+         </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>   
+   </Application.Resources>
+</Application>
