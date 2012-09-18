@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -29,13 +30,12 @@ namespace Jell.Controls
          set { SetValue(FrameIndexProperty, value); }
       }
 
-      public Uri Uri { get; set; }
-
       protected override void OnInitialized(EventArgs e)
       {
          base.OnInitialized(e);
 
-         m_gf = new GifBitmapDecoder(Uri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+         var stream = Application.GetResourceStream(new Uri(Source.ToString()));
+         m_gf = new GifBitmapDecoder(stream.Stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
          m_anim = new Int32Animation(0, m_gf.Frames.Count - 1, new Duration(new TimeSpan(0, 0, 0, m_gf.Frames.Count / 10, (int)((m_gf.Frames.Count / 10.0 - m_gf.Frames.Count / 10) * 1000))));
          m_anim.RepeatBehavior = RepeatBehavior.Forever;
          Source = m_gf.Frames[0];

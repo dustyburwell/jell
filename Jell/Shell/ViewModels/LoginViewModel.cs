@@ -80,24 +80,21 @@ namespace Jell.Shell.ViewModels
       private void OnAuthError(object sender, Element e)
       {
          m_client.Close();
-         m_client = null;
-
+         
          IsLoading = false;
       }
 
       private void OnError(object sender, Exception ex)
       {
          m_client.Close();
-         m_client = null;
-
+         
          IsLoading = false;
       }
 
       private void OnSocketError(object sender, Exception ex)
       {
          m_client.Close();
-         m_client = null;
-
+         
          IsLoading = false;
       }
 

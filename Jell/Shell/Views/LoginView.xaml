@@ -145,7 +145,7 @@
             
             <Border x:Name="IsLoading">
                <StackPanel VerticalAlignment="Center">
-                  <Controls:GifImage Uri="../../Resources/loader.gif"
+                  <Controls:GifImage Source="../../Resources/loader.gif"
                                      Width="16"
                                      Height="16"/>
                   <TextBlock x:Name="Status"
