@@ -1,7 +1,6 @@
 ﻿using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.muc;
-using Jell.Chat.ViewModels;
 
 namespace Jell.ChatClient
 {
@@ -19,12 +18,12 @@ namespace Jell.ChatClient
          m_client.OnPresence += OnPresence;
 
          m_chat = new MucManager(m_client);
+         
          Name = name;
          Jid = jid;
       }
 
       public string Name { get; private set; }
-
       public string Jid { get; private set; }
 
       public void Join(string nick, IChatRoomListener listener)

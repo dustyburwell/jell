@@ -65,7 +65,18 @@ namespace Jell.Chat.Views
       }
 
       private string AddRowScript = @"
-document.getElementById('chatLog').innerHTML += '<tr class=\'{2}\'><th>{0}</th><td>{1}</td></tr>';
+var table = $('#chatLog');
+var lasthead = table.find('th:last:parent');
+
+if (lasthead.html() == ""{0}"")
+{{
+   lasthead.attr('rowspan', parseInt(lasthead.attr('rowspan') || 1) + 1);
+   table.append('<tr class=\'{2}\'><td>{1}</td></tr>');
+}}
+else
+{{
+   table.append('<tr class=\'{2}\'><th>{0}</th><td>{1}</td></tr>');
+}}
 ";
    }
 
