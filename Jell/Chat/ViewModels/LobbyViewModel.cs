@@ -13,6 +13,8 @@ namespace Jell.Chat.ViewModels
       private readonly ApplicationViewModel m_applicationViewModel;
       private readonly Dispatcher m_dispatcher;
 
+      private bool m_searching;
+
       public LobbyViewModel(IChatClient client, ApplicationViewModel applicationViewModel)
       {
          m_client = client;
@@ -28,6 +30,16 @@ namespace Jell.Chat.ViewModels
       }
       
       public ObservableCollection<IChatRoom> Rooms { get; private set; }
+      
+      public bool Searching
+      {
+         get { return m_searching; }
+         private set
+         {
+            m_searching = value;
+            NotifyOfPropertyChange("Searching");
+         }
+      }
 
       public void JoinRoom(XmppChatRoom item)
       {
@@ -41,6 +53,7 @@ namespace Jell.Chat.ViewModels
 
       private void FindChatRooms()
       {
+         Searching = true;
          m_client.ListRooms("conference.softekinc.com", OnGetChatRooms);
       }
 
@@ -53,6 +66,8 @@ namespace Jell.Chat.ViewModels
             {
                Rooms.Add(room);
             }
+
+            Searching = false;
          }));
       }
    }
