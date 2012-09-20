@@ -70,7 +70,7 @@ namespace Jell.Chat.ViewModels
       public void OnPresence(PresenceMessage message)
       {
          m_dispatcher.BeginInvoke((Action) (() => {
-            var member = Members.FirstOrDefault(rm => rm.Name == message.From);
+            var member = Members.FirstOrDefault(rm => rm.Name == message.Nickname);
 
             if(member != null)
             {
