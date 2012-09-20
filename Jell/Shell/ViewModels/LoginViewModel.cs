@@ -2,6 +2,7 @@
 using agsXMPP;
 using agsXMPP.Xml.Dom;
 using Caliburn.Micro;
+using Jell.ChatClient;
 using Jell.Shell.Views;
 
 namespace Jell.Shell.ViewModels
@@ -9,14 +10,16 @@ namespace Jell.Shell.ViewModels
    public class LoginViewModel : Screen
    {
       private readonly ILoginListener m_loginListener;
+      private readonly IChatClientFactory m_chatClientFactory;
 
-      private XmppClientConnection m_client;
+      private IChatClient m_client;
       private string m_status;
       private bool m_isLoading;
 
-      public LoginViewModel(ILoginListener loginListener)
+      public LoginViewModel(ILoginListener loginListener, IChatClientFactory chatClientFactory)
       {
          m_loginListener = loginListener;
+         m_chatClientFactory = chatClientFactory;
       }
 
       public string Jid { get; set; }
@@ -63,12 +66,12 @@ namespace Jell.Shell.ViewModels
 
          IsLoading = true;
 
-         m_client = new XmppClientConnection(server);
+         m_client = m_chatClientFactory.Connect(server);
          m_client.OnLogin += OnLogin;
          m_client.OnError += OnError;
          m_client.OnAuthError += OnAuthError;
          m_client.OnSocketError += OnSocketError;
-         m_client.OnXmppConnectionStateChanged += OnStatusChange;
+         m_client.OnConnectionStateChanged += OnStatusChange;
          m_client.Open(user, password);
       }
 

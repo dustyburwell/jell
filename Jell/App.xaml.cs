@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Windows;
-
-namespace Jell
+﻿namespace Jell
 {
    /// <summary>
    /// Interaction logic for App.xaml

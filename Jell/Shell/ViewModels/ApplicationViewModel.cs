@@ -1,14 +1,14 @@
-﻿using agsXMPP;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using Jell.Chat.ViewModels;
+using Jell.ChatClient;
 
 namespace Jell.Shell.ViewModels
 {
    public class ApplicationViewModel : Conductor<Screen>.Collection.OneActive
    {
-      private readonly XmppClientConnection m_client;
+      private readonly IChatClient m_client;
 
-      public ApplicationViewModel(XmppClientConnection client)
+      public ApplicationViewModel(IChatClient client)
       {
          m_client = client;
       }

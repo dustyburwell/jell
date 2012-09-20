@@ -2,39 +2,32 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Threading;
-using agsXMPP;
-using agsXMPP.protocol.client;
-using agsXMPP.protocol.iq.disco;
-using agsXMPP.protocol.x.muc;
+using Jell.ChatClient;
 
 namespace Jell.Chat.ViewModels
 {
-   public class ChatRoomViewModel : Caliburn.Micro.Screen
+   public class ChatRoomViewModel : Caliburn.Micro.Screen, IChatRoomListener
    {
-      private readonly XmppClientConnection m_client;
-      private readonly DiscoItem m_discoItem;
-      private readonly Jid m_room;
+      private readonly IChatClient m_client;
+      private readonly IChatRoom m_chatRoom;
       private readonly Dispatcher m_dispatcher;
-      private readonly MucManager m_chat;
 
       private string m_message;
 
-      public ChatRoomViewModel(XmppClientConnection client, DiscoItem discoItem)
+      public ChatRoomViewModel(IChatClient client, IChatRoom chatRoom)
       {
          m_dispatcher = Dispatcher.CurrentDispatcher;
          
          m_client = client;
-         m_discoItem = discoItem;
-         m_room = discoItem.Jid;
-         m_chat = new MucManager(m_client);
+         m_chatRoom = chatRoom;
          ChatLog = new ChatLogViewModel(m_client.Username);
 
-         Members = new ObservableCollection<string>();
+         Members = new ObservableCollection<RoomMember>();
       }
 
       public override string DisplayName
       {
-         get { return m_discoItem.Name; }
+         get { return m_chatRoom.Name; }
          set { }
       }
 
@@ -50,42 +43,51 @@ namespace Jell.Chat.ViewModels
          }
       }
 
-      public ObservableCollection<string> Members { get; private set; }
+      public ObservableCollection<RoomMember> Members { get; private set; }
 
       public void SendMessage()
       {
-         m_client.Send(new Message(m_room, MessageType.groupchat, Message));
+         m_chatRoom.Send(Message);
          Message = string.Empty;
       }
 
       public void Leave()
       {
-         m_chat.LeaveRoom(m_room, m_client.Username);
-         m_client.OnMessage -= OnMessage;
+         m_chatRoom.Leave(m_client.Username);
          TryClose();
       }
 
       protected override void OnInitialize()
       {
-         m_chat.AcceptDefaultConfiguration(m_room);
-         m_chat.JoinRoom(m_room, m_client.Username);
-         m_client.OnMessage += OnMessage;
-         m_chat.RequestList(Role.participant, m_room, (a, b, c) => m_dispatcher.BeginInvoke((Action)(() => {
-            Members.Clear();
-
-            foreach (Item member in b.FirstChild.ChildNodes.Cast<object>().Where(x => x is Item))
-            {
-               Members.Add(member.Nickname);
-            }
-         })), null);
+         m_chatRoom.Join(m_client.Username, this);
       }
 
-      private void OnMessage(object sender, Message msg)
+      public void OnMessage(ChatMessage message)
       {
-         if (msg.From.Bare != m_room.Bare)
-            return;
+         m_dispatcher.BeginInvoke((Action) (() => ChatLog.AddMessage(message)));
+      }
 
-         m_dispatcher.BeginInvoke((Action) (() => ChatLog.AddMessage(msg)));
+      public void OnPresence(PresenceMessage message)
+      {
+         m_dispatcher.BeginInvoke((Action) (() => {
+            var member = Members.FirstOrDefault(rm => rm.Name == message.From);
+
+            if(member != null)
+            {
+               if (message.IsRemove)
+               {
+                  Members.Remove(member);
+               }
+               else
+               {
+                  member.IsAway = message.IsAway;
+               }
+            }
+            else
+            {
+               Members.Add(new RoomMember(message.Nickname, message.IsAway));
+            }
+         }));
       }
    }
 }

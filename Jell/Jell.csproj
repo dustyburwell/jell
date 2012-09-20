@@ -71,9 +71,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChatClient\ChatMessage.cs" />
+    <Compile Include="ChatClient\IChatRoomListener.cs" />
+    <Compile Include="ChatClient\PresenceMessage.cs" />
+    <Compile Include="ChatClient\XmppChatRoom.cs" />
+    <Compile Include="ChatClient\IChatClient.cs" />
+    <Compile Include="ChatClient\IChatClientFactory.cs" />
+    <Compile Include="ChatClient\IChatRoom.cs" />
+    <Compile Include="ChatClient\Participant.cs" />
+    <Compile Include="ChatClient\XmppChatClient.cs" />
+    <Compile Include="ChatClient\XmppChatClientFactory.cs" />
     <Compile Include="Chat\ViewModels\ChatRoomViewModel.cs" />
     <Compile Include="Chat\ViewModels\ChatLogViewModel.cs" />
     <Compile Include="Chat\ViewModels\LobbyViewModel.cs" />
+    <Compile Include="Chat\ViewModels\RoomMember.cs" />
     <Compile Include="Chat\Views\ChatLogView.xaml.cs">
       <DependentUpon>ChatLogView.xaml</DependentUpon>
     </Compile>
@@ -161,6 +172,7 @@
   <ItemGroup>
     <Resource Include="Resources\loader.gif" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

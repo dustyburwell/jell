@@ -1,26 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Threading;
-using agsXMPP;
-using agsXMPP.protocol.client;
-using agsXMPP.protocol.iq.disco;
+using Jell.ChatClient;
 using Jell.Shell.ViewModels;
 
 namespace Jell.Chat.ViewModels
 {
    public class LobbyViewModel : Caliburn.Micro.Screen
    {
-      private readonly XmppClientConnection m_client;
+      private readonly IChatClient m_client;
       private readonly ApplicationViewModel m_applicationViewModel;
       private readonly Dispatcher m_dispatcher;
 
-      public LobbyViewModel(XmppClientConnection client, ApplicationViewModel applicationViewModel)
+      public LobbyViewModel(IChatClient client, ApplicationViewModel applicationViewModel)
       {
          m_client = client;
          m_applicationViewModel = applicationViewModel;
          m_dispatcher = Dispatcher.CurrentDispatcher;
-         Rooms = new ObservableCollection<DiscoItem>();
+         Rooms = new ObservableCollection<IChatRoom>();
       }
 
       public override string DisplayName
@@ -29,9 +27,9 @@ namespace Jell.Chat.ViewModels
          set { }
       }
       
-      public ObservableCollection<DiscoItem> Rooms { get; private set; }
+      public ObservableCollection<IChatRoom> Rooms { get; private set; }
 
-      public void JoinRoom(DiscoItem item)
+      public void JoinRoom(XmppChatRoom item)
       {
          m_applicationViewModel.ActivateItem(new ChatRoomViewModel(m_client, item));
       }
@@ -43,46 +41,19 @@ namespace Jell.Chat.ViewModels
 
       private void FindChatRooms()
       {
-         DiscoItemsIq discoIq = new DiscoItemsIq(IqType.get);
-         discoIq.To = new Jid("conference.softekinc.com");
-         m_client.IqGrabber.SendIq(discoIq, OnGetChatRooms, null);
+         m_client.ListRooms("conference.softekinc.com", OnGetChatRooms);
       }
 
-      private void OnGetChatRooms(object sender, IQ iq, object data)
+      private void OnGetChatRooms(IEnumerable<IChatRoom> rooms)
       {
          m_dispatcher.BeginInvoke((Action)(() => {
             Rooms.Clear();
 
-            foreach (DiscoItem room in iq.FirstChild.ChildNodes.Cast<object>().Where(x => x is DiscoItem))
+            foreach (var room in rooms)
             {
                Rooms.Add(room);
             }
-         }), DispatcherPriority.Normal);
-      }
-   }
-
-   public class DiscoItemsIq : agsXMPP.protocol.component.IQ
-   {
-      private readonly DiscoItems m_discoItems = new DiscoItems();
-
-      public DiscoItemsIq()
-      {
-         base.Query = m_discoItems;
-         this.GenerateId();
-      }
-
-      public DiscoItemsIq(IqType type)
-         : this()
-      {
-         this.Type = type;
-      }
-
-      public new DiscoItems Query
-      {
-         get
-         {
-            return m_discoItems;
-         }
+         }));
       }
    }
 }

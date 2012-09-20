@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Threading;
-using agsXMPP;
+using Jell.ChatClient;
 using Jell.Shell.Views;
 
 namespace Jell.Shell.ViewModels
@@ -13,7 +13,7 @@ namespace Jell.Shell.ViewModels
       public ShellViewModel()
       {
          m_dispatcher = Dispatcher.CurrentDispatcher;
-         m_loginViewModel = new LoginViewModel(this);
+         m_loginViewModel = new LoginViewModel(this, new XmppChatClientFactory());
       }
 
       public override string DisplayName
@@ -27,7 +27,7 @@ namespace Jell.Shell.ViewModels
          ActivateItem(m_loginViewModel);
       }
 
-      public void LoginSuccess(XmppClientConnection client)
+      public void LoginSuccess(IChatClient client)
       {
          m_dispatcher.BeginInvoke((Action)(() => {
             ActivateItem(new ApplicationViewModel(client));
