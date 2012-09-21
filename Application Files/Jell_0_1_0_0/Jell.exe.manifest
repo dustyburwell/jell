@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
+  <asmv1:assemblyIdentity name="Jell.exe" version="0.1.0.0" publicKeyToken="1d15dc294217b9f0" language="neutral" processorArchitecture="x86" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Jell" version="0.1.0.0" language="neutral" processorArchitecture="x86" />
+    <commandLine file="Jell.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="agsXMPP.dll" size="516096">
+      <assemblyIdentity name="agsXMPP" version="1.1.1.0" publicKeyToken="FF839B81F1DEBE86" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>adlF6NzsMhhW2hRvRiO6gp9N98Y=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Awesomium.Core.dll" size="209720">
+      <assemblyIdentity name="Awesomium.Core" version="1.6.6.0" publicKeyToken="E1A0D7C8071A5214" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>oEGeBwHziMgx1v5FvFEx0z/x2os=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Awesomium.Windows.Controls.dll" size="656184">
+      <assemblyIdentity name="Awesomium.Windows.Controls" version="1.6.6.0" publicKeyToken="7A34E179B8B61C39" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>fM1Sb9xjQYzQRpLCmwvV33hpoZI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Caliburn.Micro.dll" size="104448">
+      <assemblyIdentity name="Caliburn.Micro" version="1.3.1.0" publicKeyToken="8E5891231F2ED21F" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>PQAnWxNNRoGVylRDGadapVGgyNc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Jell.exe" size="266240">
+      <assemblyIdentity name="Jell" version="0.1.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>ieuTkNHdlT0U5SCK7P+O0dD33uE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Windows.Interactivity.dll" size="39936">
+      <assemblyIdentity name="System.Windows.Interactivity" version="4.0.0.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>GZpnUOZ8xCbDAnDvqifYB2EGXVM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Jell.exe.config" size="159">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>1MarUy3RuVvHLdw5ozZo3o7j39I=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=dbpc\dusty.burwell" issuerKeyHash="080ec1a66528638c8d0bfda6883f3cec256d4eef" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>52/JP0rCkxXVcL5C3yjOaNHrRVA=</DigestValue></Reference></SignedInfo><SignatureValue>Z6mOrvLEdnsMu+6jdA5Y7nQYA6Ir9NuROGc/gukdysnVfasbEX7PZu1QXKt5WbzuwEyQyW+NdPC3sXbdYy49Ib78nGhKQi0ndY9cvsIYIt3XEWc5DU+At1R9MmGxr9S6wDgYrGuDnhks6D/vl8gY6jlGGLNdBkYHXVWB4zreyF8=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>nmVmre0veHirGZ3nKvZPefnoGjNXUZS9EkNg5gfcLNKXn+okNa+bs6CHMS+hVKqyqi4dMmdfjO9RkmJ+/np8vsexcjkaTEbHusiVI1oHSUqxwzzb9GpFDD7IkL9XXAQC3PtU8NQuimdTAbzLZFvazY2zjrjaI0BYvzz5uBD6LOk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="5045ebd168ce28df42be70d51593c24a3fc96fe7" Description="" Url=""><as:assemblyIdentity name="Jell.exe" version="0.1.0.0" publicKeyToken="1d15dc294217b9f0" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=dbpc\dusty.burwell</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>4CUaVHiEX/RQJByHSGSoD5RqO+k=</DigestValue></Reference></SignedInfo><SignatureValue>baJhfr6Udo10JN68qjDccoS7OBJIBmoMwPQKk0DC5P7yda1qVLPwpioP7dyFdlLop/0kko+vdKVUBZEn6Zw2GDxeQ9tIuJcIpMtIGdgmMd6q0/gUv2lxsSBPUfgtKztD+WV087ZwcthI6BbTfToCxIRyGLUDU3rnUEB7kZbZV88=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>nmVmre0veHirGZ3nKvZPefnoGjNXUZS9EkNg5gfcLNKXn+okNa+bs6CHMS+hVKqyqi4dMmdfjO9RkmJ+/np8vsexcjkaTEbHusiVI1oHSUqxwzzb9GpFDD7IkL9XXAQC3PtU8NQuimdTAbzLZFvazY2zjrjaI0BYvzz5uBD6LOk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB4TCCAUqgAwIBAgIQbwhya5HM85JGwfwekgnCXjANBgkqhkiG9w0BAQUFADAvMS0wKwYDVQQDHiQAZABiAHAAYwBcAGQAdQBzAHQAeQAuAGIAdQByAHcAZQBsAGwwHhcNMTIwOTIwMTU0NzU5WhcNMTMwOTIwMjE0NzU5WjAvMS0wKwYDVQQDHiQAZABiAHAAYwBcAGQAdQBzAHQAeQAuAGIAdQByAHcAZQBsAGwwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAJ5lZq3tL3h4qxmd5yr2T3n56BozV1GUvRJDYOYH3CzSl5/qJDWvm7OghzEvoVSqsqouHTJnX4zvUZJifv56fL7HsXI5GkxGx7rIlSNaB0lKscM82/RqRQw+yJC/V1wEAtz7VPDULopnUwG8y2Rb2s2Ns4642iNAWL88+bgQ+izpAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAPQMy1cSrus2vAVi3gdvZWssLV55TacmKhaPijfLgreh1Aj/Fo6Wea8CaNPE4wR0gzyAfSD8ojYP2MCp9AQG5R6sYtZCMe/8jOTeEyDZE62wcHNU/3AnuKKJ2NgpUzqS/3u5pGPmFTFjVsuQz5JLdSDeAdSGwjtRUiKNXCtMKiQk=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
