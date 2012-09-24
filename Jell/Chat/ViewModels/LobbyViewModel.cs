@@ -41,9 +41,9 @@ namespace Jell.Chat.ViewModels
          }
       }
 
-      public void JoinRoom(XmppChatRoom item)
+      public void JoinRoom(IChatRoom item)
       {
-         m_applicationViewModel.ActivateItem(new ChatRoomViewModel(m_client, item));
+         m_applicationViewModel.OpenRoom(item);
       }
 
       protected override void OnActivate()
