@@ -13,11 +13,7 @@ namespace Jell.ChatClient
 
       public XmppChatRoom(string name, string jid, XmppClientConnection client)
       {
-         // todo: There's a memory leak here. Need to design around it.
          m_client = client;
-         m_client.OnMessage += OnMessage;
-         m_client.OnPresence += OnPresence;
-
          m_chat = new MucManager(m_client);
          
          Name = name;
@@ -30,6 +26,8 @@ namespace Jell.ChatClient
       public void Join(string nick, IChatRoomListener listener)
       {
          m_listener = listener;
+         m_client.OnMessage += OnMessage;
+         m_client.OnPresence += OnPresence;
 
          m_chat.AcceptDefaultConfiguration(Jid);
          m_chat.JoinRoom(Jid, nick);
@@ -38,6 +36,8 @@ namespace Jell.ChatClient
       public void Leave(string nick)
       {
          m_listener = null;
+         m_client.OnMessage -= OnMessage;
+         m_client.OnPresence -= OnPresence;
 
          m_chat.LeaveRoom(Jid, nick);
       }
