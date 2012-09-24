@@ -13,6 +13,7 @@ namespace Jell.ChatClient
 
       public XmppChatRoom(string name, string jid, XmppClientConnection client)
       {
+         // todo: There's a memory leak here. Need to design around it.
          m_client = client;
          m_client.OnMessage += OnMessage;
          m_client.OnPresence += OnPresence;
@@ -37,6 +38,8 @@ namespace Jell.ChatClient
       public void Leave(string nick)
       {
          m_listener = null;
+
+         m_chat.LeaveRoom(Jid, nick);
       }
 
       private void OnMessage(object sender, Message msg)

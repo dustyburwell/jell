@@ -64,25 +64,9 @@ namespace Jell.Chat.ViewModels
          Message = string.Empty;
       }
 
-      public void Leave()
-      {
-         m_chatRoom.Leave(m_client.Username);
-         TryClose();
-      }
-
-      protected override void OnInitialize()
-      {
-         m_chatRoom.Join(m_client.Username, this);
-      }
-
-      protected override void OnActivate()
-      {
-         HasUnreadMessages = false;
-      }
-
       public void OnMessage(ChatMessage message)
       {
-         m_dispatcher.BeginInvoke((Action) (() => ChatLog.AddMessage(message)));
+         m_dispatcher.BeginInvoke((Action)(() => ChatLog.AddMessage(message)));
 
          if (!IsActive)
             HasUnreadMessages = true;
@@ -90,10 +74,11 @@ namespace Jell.Chat.ViewModels
 
       public void OnPresence(PresenceMessage message)
       {
-         m_dispatcher.BeginInvoke((Action) (() => {
+         m_dispatcher.BeginInvoke((Action)(() =>
+         {
             var member = Members.FirstOrDefault(rm => rm.Name == message.Nickname);
 
-            if(member != null)
+            if (member != null)
             {
                if (message.IsRemove)
                {
@@ -109,6 +94,24 @@ namespace Jell.Chat.ViewModels
                Members.Add(new RoomMember(message.Nickname, message.IsAway));
             }
          }));
+      }
+
+      protected override void OnInitialize()
+      {
+         m_chatRoom.Join(m_client.Username, this);
+      }
+
+      protected override void OnActivate()
+      {
+         HasUnreadMessages = false;
+      }
+
+      protected override void OnDeactivate(bool close)
+      {
+         base.OnDeactivate(close);
+
+         if (close)
+            m_chatRoom.Leave(m_client.Username);
       }
    }
 }

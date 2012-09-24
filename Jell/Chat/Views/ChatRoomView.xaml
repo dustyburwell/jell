@@ -1,6 +1,12 @@
 ﻿<UserControl x:Class="Jell.Chat.Views.ChatRoomView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ViewModels="clr-namespace:Jell.Chat.ViewModels" d:DesignHeight="276" d:DesignWidth="512">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             mc:Ignorable="d" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:ViewModels="clr-namespace:Jell.Chat.ViewModels" 
+             xmlns:Micro="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" 
+             d:DesignHeight="276" d:DesignWidth="512">
    <Grid Background="#e9FFe9"
          TextElement.FontFamily="Arial"
          TextElement.Foreground="#666">
@@ -49,10 +55,10 @@
 
                <DockPanel Background="#F0F0F0"
                           Margin="0 5 0 0">
-                  <Button x:Name="Leave"
-                          Content="Leave"
+                  <Button Content="Leave"
                           DockPanel.Dock="Right"
-                          Margin="3"/>
+                          Margin="3"
+                          Micro:Message.Attach="LeaveRoom($dataContext)"/>
                   
                   <TextBlock Text="Who's here?" 
                              Margin="3"/>

@@ -46,6 +46,12 @@ namespace Jell.Shell.ViewModels
          ActivateItem(roomViewModel);
       }
 
+      public void LeaveRoom(ChatRoomViewModel room)
+      {
+         room.TryClose();
+         m_chatRooms.Remove(room);
+      }
+
       private void RoomHasUnreadMessagesChanged(object sender, EventArgs e)
       {
          NotifyOfPropertyChange("HasUnreadMessages");

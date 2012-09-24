@@ -41,7 +41,9 @@
          <StackPanel VerticalAlignment="Center"
                      HorizontalAlignment="Center">
             <TextBlock Text="Searching for Rooms..."/>
-            <Controls:GifImage Source="../../Resources/loader.gif"/>
+            <Controls:GifImage Source="../../Resources/loader.gif"
+                               Width="16"
+                               Height="16"/>
          </StackPanel>
       </Border>
    </Grid>
