@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
 using Jell.Chat.ViewModels;
@@ -10,29 +10,31 @@ namespace Jell.Shell.ViewModels
    public class ApplicationViewModel : Conductor<Screen>.Collection.OneActive
    {
       private readonly IChatClient m_client;
-      private readonly IList<ChatRoomViewModel> m_chatRooms;
 
       public ApplicationViewModel(IChatClient client)
       {
          m_client = client;
-         m_chatRooms = new List<ChatRoomViewModel>();
+         ChatRooms = new ObservableCollection<ChatRoomViewModel>();
       }
 
       public bool HasUnreadMessages
       {
-         get { return m_chatRooms.Any(room => room.HasUnreadMessages); }
+         get { return ChatRooms.Any(room => room.HasUnreadMessages); }
       }
+
+      public ObservableCollection<ChatRoomViewModel> ChatRooms { get; private set; }
+      public LobbyViewModel Lobby { get; private set; }
 
       protected override void OnInitialize()
       {
-         ActivateItem(new LobbyViewModel(m_client, this));
+         ActivateItem(Lobby = new LobbyViewModel(m_client, this));
       }
 
       public void OpenRoom(IChatRoom item)
       {
          ChatRoomViewModel roomViewModel;
 
-         if ((roomViewModel = m_chatRooms.FirstOrDefault(r => r.DisplayName == item.Name)) != null)
+         if ((roomViewModel = ChatRooms.FirstOrDefault(r => r.DisplayName == item.Name)) != null)
          {
             ActivateItem(roomViewModel);
             return;
@@ -41,7 +43,7 @@ namespace Jell.Shell.ViewModels
          roomViewModel = new ChatRoomViewModel(m_client, item);
 
          roomViewModel.HasUnreadMessagesChanged += RoomHasUnreadMessagesChanged;
-         m_chatRooms.Add(roomViewModel);
+         ChatRooms.Add(roomViewModel);
 
          ActivateItem(roomViewModel);
       }
@@ -49,7 +51,7 @@ namespace Jell.Shell.ViewModels
       public void LeaveRoom(ChatRoomViewModel room)
       {
          room.TryClose();
-         m_chatRooms.Remove(room);
+         ChatRooms.Remove(room);
       }
 
       private void RoomHasUnreadMessagesChanged(object sender, EventArgs e)
