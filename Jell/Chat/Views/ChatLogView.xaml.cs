@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Awesomium.Core;
@@ -37,19 +38,32 @@ namespace Jell.Chat.Views
 
       public void Linkify(string text, Action<string> onSuccess)
       {
-         text = text.Replace("<", "&lt;");
-         text = text.Replace(">", "&gt;");
-         text = text.Replace("'", "&apos;");
-         text = Regex.Replace(text, @"(http|https|ftp)\://[a-zA-Z0-9\-\.]+" +
-                             @"\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?" +
-                             @"([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*", match => {
-            
-            var path = new Uri(match.Value).AbsolutePath;
+         text = Regex.Replace(text, @"(http\://|https\://|www.)\S*", match => {
+            if (match.Index != 0)
+            {
+               var previousChar = text[match.Index - 1];
+
+               if (!char.IsWhiteSpace(previousChar))
+                  return match.Value;
+            }
+
+            var value = match.Value;
+            var path = new UriBuilder(value).Uri.AbsolutePath;
+
+            if (match.Groups[1].Value == "www.")
+               value = "http://" + value;
 
             return path.EndsWith("jpg") || path.EndsWith("gif") || path.EndsWith("png")
-                  ? "<img src=\\'" + match.Value + "\\'></img>"
-                  : "<a target=\\'blank\\' href=\\'" + match.Value + "\\'>" + match.Value + "</a>";
+                  ? "![Inline Image](" + value + ")"
+                  : "[" + value + "](" + value + ")";
          });
+         text = new MarkdownDeep.Markdown {
+            ExtraMode = true,
+            NewWindowForExternalLinks = true,
+            NewWindowForLocalLinks = true,
+         }.Transform(text);
+         text = text.Replace("\n", "");
+         text = text.Replace(@"\", @"\\");
 
          onSuccess(text);
       }
@@ -61,6 +75,9 @@ namespace Jell.Chat.Views
 
       private void Browser_OpenExternalLink(object sender, OpenExternalLinkEventArgs e)
       {
+         if (string.IsNullOrWhiteSpace(e.Url))
+            return;
+
          Process.Start(e.Url);
       }
 
